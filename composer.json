@@ -1,0 +1,14 @@
+{
+    "name": "kraftner/kraftner-wp-updates",
+    "type": "wordpress-plugin",
+    "authors": [
+        {
+            "name": "Thomas Kräftner",
+            "email": "thomas@kraftner.com"
+        }
+    ],
+    "require" : {
+        "php": ">=7.3",
+        "composer/installers": "~1.0"
+    }
+}
