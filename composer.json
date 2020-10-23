@@ -1,12 +1,21 @@
 {
     "name": "kraftner/kraftner-wp-updates",
+    "description": "Configures WordPress to enable auto updates with the kraftner-boilerplate-wordpress stack",
     "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://github.com/kraftner/kraftner-wp-updates",
     "authors": [
         {
             "name": "Thomas Kräftner",
-            "email": "thomas@kraftner.com"
+            "email": "thomas@kraftner.com",
+            "homepage": "https://kraftner.com",
+            "role": "Developer"
         }
     ],
+    "support": {
+        "issues": "https://github.com/kraftner/kraftner-wp-updates/issues",
+        "source": "https://github.com/kraftner/kraftner-wp-updates"
+    },
     "require" : {
         "php": ">=7.3",
         "composer/installers": "~1.0"

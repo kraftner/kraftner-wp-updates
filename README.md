@@ -45,6 +45,7 @@ Obviously if one disabled the updates explicitly they are disabled.
 - Cron needs to be working
 
 Updates are done via Cron so it doesn't slow down user requests. So without working Cron no aut updates.
+Be aware that since the Cron runs on a HTTP request sites behind .htaccess protection will not get the cron triggered.
 
 ## Auto Update Flow Part 1
 

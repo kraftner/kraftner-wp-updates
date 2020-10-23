@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Kraftner WordPress Updates
  * Description: Configures WordPress to enable auto updates with the kraftner-boilerplate-wordpress stack
- * Version: 0.0.1
+ * Version: 0.0.2
  * Requires PHP: 7.3
  * Author: Thomas Kräftner <thomas@kraftner.com>
  * Author URI: https://kraftner.com/
