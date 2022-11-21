@@ -1,0 +1,8 @@
+# Prevent access to all dotfiles (starting with a dot).
+<FilesMatch "^\.">
+    DENY FROM ALL
+</FilesMatch>
+# Prevent access to a couple of non-public root files.
+<Files ~ "^(CHANGELOG\.md|cli|codeception\.dist\.yml|composer\.json|composer\.lock|GLOSSARY\.md|package\.json|package-lock\.json|phpmd\.xml|phpstan\.neon\.dist|phpstan-constants\.php|psalm\.xml|README\.md|SOLUM\.md|webpack\.config\.js)$">
+    DENY FROM ALL
+</Files>

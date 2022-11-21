@@ -1,0 +1,8 @@
+version: "3.7"
+
+services:
+
+  wordpress:
+    # Intentionally set the hostname to something invalid when running via `cli run` to make the "actual" "wordpress"
+    # container reachable. Without the container calls itself instead of the "actual" "wordpress" from `cli start`.
+    hostname: ""

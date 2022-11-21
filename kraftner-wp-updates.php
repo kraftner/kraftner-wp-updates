@@ -10,10 +10,12 @@
  * Domain Path: /languages
  */
 
+declare(strict_types=1);
+
 add_filter('file_mod_allowed',
 
     /**
-     * Allow file modifications for the automatic updater, and only that, even if `DISALLOW_FILE_MODS`is `true`.
+     * Allow file modifications for the automatic updater, and only that, even if `DISALLOW_FILE_MODS` is `true`.
      *
      * @see WP_Automatic_Updater::is_disabled
      *

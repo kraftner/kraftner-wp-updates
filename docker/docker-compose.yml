@@ -1,0 +1,102 @@
+version: "3.7"
+
+services:
+
+  wordpress:
+    build:
+      context: .
+      dockerfile: images/Dockerfile
+      args:
+        # Pass the user this is run under to the Dockerfile
+        SOLUM_UID: ${SOLUM_UID:-1000}
+        SOLUM_PHP_VERSION: ${SOLUM_PHP_VERSION?SOLUM_PHP_VERSION missing}
+        SOLUM_WP_VERSION: ${SOLUM_WP_VERSION?SOLUM_WP_VERSION missing}
+    depends_on:
+      - db
+    environment:
+      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+      SOLUM_DOMAIN: ${SOLUM_DOMAIN?SOLUM_DOMAIN missing}
+      SOLUM_PORT_RANGE_INDEX: ${SOLUM_PORT_RANGE_INDEX?SOLUM_PORT_RANGE_INDEX missing}
+      SOLUM_PORT_WEB: ${SOLUM_PORT_WEB?SOLUM_PORT_WEB missing}
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wp
+      WORDPRESS_DB_PASSWORD: wp
+      WORDPRESS_DEBUG: 1
+      WORDPRESS_CONFIG_EXTRA: |
+        define('DISALLOW_FILE_MODS', true);
+        define('WP_DISABLE_FATAL_ERROR_HANDLER', true);
+      #The name of the Server corresponds to whatever is configured in "Languages & Frameworks | PHP | Servers" in PhpStorm
+      PHP_IDE_CONFIG: serverName=Docker
+    hostname: $SOLUM_DOMAIN
+    ports:
+      - 127.0.0.1:${SOLUM_PORT_WEB?SOLUM_PORT_WEB missing}:80
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      # Mount the plugin into WP core.
+      - type: bind
+        source: ..
+        target: /var/www/html/wp-content/plugins/${COMPOSE_PROJECT_NAME}
+      # If you don't want to have WP core in the local filesystem just comment out the rest of the volumes.
+      - type: bind
+        source: ../wordpress
+        target: /var/www/html
+      # This is just a guard that aborts if the mount folder for the plugin doesn't exist.
+      # This keeps Docker from creating a root-owned folder in the host file system.
+      # This only works with the long form mount definition. Only missing `source` causes an error.
+      # https://docs.docker.com/storage/bind-mounts/#differences-between--v-and---mount-behavior
+      - type: bind
+        source: ../wordpress/wp-content/plugins/${COMPOSE_PROJECT_NAME}
+        target: /tmp/dummy
+      # Overlay the internal files as read only.
+      # This is a security measure to prevent them from manipulation from inside the container.
+      # Otherwise malicious code in the container can e.g. manipulate `cli` that is meant to be run on the host.
+      - type: bind
+        source: ../bin/
+        target: /var/www/html/wp-content/plugins/${COMPOSE_PROJECT_NAME}/bin/
+        read_only: true
+      - type: bind
+        source: ../docker/
+        target: /var/www/html/wp-content/plugins/${COMPOSE_PROJECT_NAME}/docker/
+        read_only: true
+      - type: bind
+        source: ../cli
+        target: /var/www/html/wp-content/plugins/${COMPOSE_PROJECT_NAME}/cli
+        read_only: true
+  db:
+    # https://wordpress.org/about/requirements/
+    image: mysql:5.7
+    # You can also use MariaDB. The environment var names are the same.
+    # image: mariadb:latest
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wp
+      MYSQL_PASSWORD: wp
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 127.0.0.1:${SOLUM_PORT_RANGE_INDEX?SOLUM_PORT_RANGE_INDEX missing}6:80
+    environment:
+      - PMA_HOST=db
+      - PMA_USER=wp
+      - PMA_PASSWORD=wp
+
+  build:
+    build:
+      context: .
+      dockerfile: images/Dockerfile-build
+      args:
+        # Pass the user this is run under to the Dockerfile
+        SOLUM_UID: ${SOLUM_UID:-1000}
+        SOLUM_PHP_VERSION: ${SOLUM_PHP_VERSION?SOLUM_PHP_VERSION missing}
+    working_dir: /usr/var/app
+    volumes:
+      - ..:/usr/var/app/
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 127.0.0.1:${SOLUM_PORT_RANGE_INDEX?SOLUM_PORT_RANGE_INDEX missing}5:8025

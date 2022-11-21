@@ -1,0 +1,37 @@
+ARG SOLUM_UID
+ARG SOLUM_PHP_VERSION
+########################################################
+# Build container differently depending on PHP version #
+########################################################
+
+FROM node:18 AS solum-build-php-7.4
+RUN apt-get update && apt-get install -y php${SOLUM_PHP_VERSION}-cli php${SOLUM_PHP_VERSION}-mbstring
+
+FROM node:18 AS solum-build-php-8
+
+RUN set -eux; \
+	apt-get update; \
+    apt-get -y install apt-transport-https lsb-release ca-certificates curl; \
+    curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg; \
+    sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'; \
+    apt-get update; \
+	rm -rf /var/lib/apt/lists/*
+
+FROM solum-build-php-8 AS solum-build-php-8.0
+RUN apt-get update && apt-get install -y php${SOLUM_PHP_VERSION}-cli php${SOLUM_PHP_VERSION}-mbstring
+
+FROM solum-build-php-8 AS solum-build-php-8.1
+RUN apt-get update && apt-get install -y php${SOLUM_PHP_VERSION}-cli php${SOLUM_PHP_VERSION}-mbstring
+
+###############
+# Final image #
+###############
+
+FROM solum-build-php-${SOLUM_PHP_VERSION}
+
+ARG SOLUM_UID
+
+# WP-CLI
+COPY --from=wordpress:cli /usr/local/bin/wp /usr/local/bin/wp
+
+USER $SOLUM_UID

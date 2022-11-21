@@ -1,0 +1,58 @@
+#!/bin/bash
+
+# http://redsymbol.net/articles/unofficial-bash-strict-mode/
+set -euo pipefail
+
+PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+SCRIPT_DIR="${PROJECT_DIR}/bin"
+export PROJECT_DIR SCRIPT_DIR
+
+DOCKER_DIR="${PROJECT_DIR}/docker"
+export DOCKER_DIR
+
+. "${SCRIPT_DIR}/inc/checks.sh"
+. "${SCRIPT_DIR}/inc/output.sh"
+
+# http://redsymbol.net/articles/unofficial-bash-strict-mode/#solution-positional-parameters
+if [[ -z "${1:-}" ]]; then
+    "${SCRIPT_DIR}/help.sh"
+    exit 1
+fi
+
+case $1 in
+   "init")
+    "${SCRIPT_DIR}/init.sh"
+    ;;
+   "start")
+    "${SCRIPT_DIR}/start.sh" "${2:-}"
+    ;;
+   "stop")
+    "${SCRIPT_DIR}/stop.sh" "${2:-}"
+    ;;
+   "clean")
+    "${SCRIPT_DIR}/clean.sh" "${@:2}"
+    ;;
+   "rebuild")
+    "${SCRIPT_DIR}/clean.sh" && "${SCRIPT_DIR}/pull.sh" && "${SCRIPT_DIR}/start.sh";
+    ;;
+   ## This is only really relevant for testing solum.
+   "reset")
+    "${SCRIPT_DIR}/clean.sh" --all && "${SCRIPT_DIR}/init.sh" && "${SCRIPT_DIR}/start.sh";
+    ;;
+   "wp")
+    "${SCRIPT_DIR}/run.sh" wordpress wp "${@:2}"
+    ;;
+   "composer")
+    "${SCRIPT_DIR}/run.sh" wordpress composer "${@:2}"
+    ;;
+   "npm")
+    "${SCRIPT_DIR}/run.sh" build npm "${@:2}"
+    ;;
+   "help")
+    "${SCRIPT_DIR}/help.sh" "${@:2}"
+    ;;
+   *)
+    solum_error "solum cli: Unknown command »$1«"
+    solum_error "Call »help« for usage instructions."
+    exit 1
+esac

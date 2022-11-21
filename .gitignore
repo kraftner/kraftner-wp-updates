@@ -1,0 +1,7 @@
+composer.lock
+/.idea
+/docker/.env
+/node_modules/
+/plugin-zip/
+/vendor/
+/wordpress/

@@ -202,6 +202,17 @@ add_filter('file_mod_allowed',
 10, 2);
 ```
 
+## Solum Plugin Boilerplate
+
+This WordPress plugin is built using Solum, a WordPress plugin boilerplate created by Thomas Kräftner for his
+freelance work.
+
+Since it is a boilerplate all that is needed for the ongoing development of this plugin is included in this repository.
+
+Some basic information can be found in `SOLUM.md`. This notice is mostly only included to clear up any confusion should
+the term "Solum" stand out in the source code.
+
+
 [1]: https://codex.wordpress.org/WordPress.org_API#Version_Check 
 [2]: https://developer.wordpress.org/plugins/cron/
 [3]: https://wordpress.org/support/article/editing-wp-config-php/#wordpress-upgrade-constants

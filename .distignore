@@ -1,0 +1,36 @@
+.git
+.github
+.idea
+
+bin
+build
+data
+docker
+node_modules
+plugin-zip
+tests
+# The vendor folder is intentionally not excluded since it is needed in a non-composer install
+# vendor
+wordpress
+.distignore
+.gitattributes
+.gitignore
+CHANGELOG.md
+cli
+composer.json
+composer.lock
+GLOSSARY.md
+package.json
+package-lock.json
+phpunit.xml
+phpunit.xml.dist
+.phpcs.xml
+phpcs.xml
+.phpcs.xml.dist
+phpcs.xml.dist
+phpmd.xml
+phpstan.neon.dist
+phpstan-constants.php
+psalm.xml
+README.md
+SOLUM.md
