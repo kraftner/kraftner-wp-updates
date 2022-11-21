@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: Kraftner WordPress Updates
- * Description: Configures WordPress to enable auto updates with the kraftner-boilerplate-wordpress stack
- * Version: 0.0.2
+ * Description: Configures WordPress Auto Updates to work even with <code>DISALLOW_FILE_MODS</code> set to <code>true</code>. Also disables Auto Core Updates for Major versions.
+ * Version: 0.1.0-alpha
  * Requires PHP: 7.3
  * Author: Thomas Kräftner <thomas@kraftner.com>
  * Author URI: https://kraftner.com/
@@ -35,3 +35,12 @@ add_filter('file_mod_allowed',
     },
 
 10, 2);
+
+/**
+ * Disable Auto Core Updates for Major versions.
+ * This is needed since in WP >= 5.6 it would otherwise be enabled.
+ *
+ * @link https://make.wordpress.org/core/2020/11/24/core-major-versions-auto-updates-ui-changes-in-wordpress-5-6-correction/
+ */
+add_filter( 'allow_major_auto_core_updates', '__return_false' );
+

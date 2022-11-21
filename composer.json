@@ -1,6 +1,6 @@
 {
     "name": "kraftner/kraftner-wp-updates",
-    "description": "Configures WordPress to enable auto updates with the kraftner-boilerplate-wordpress stack",
+    "description": "Configures WordPress Auto Updates to work even with <code>DISALLOW_FILE_MODS</code> set to <code>true</code>. Also disables Auto Core Updates for Major versions.",
     "type": "wordpress-plugin",
     "license": "GPL-2.0-or-later",
     "homepage": "https://github.com/kraftner/kraftner-wp-updates",
