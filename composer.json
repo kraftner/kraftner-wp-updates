@@ -30,6 +30,7 @@
             "/bin",
             "/data",
             "/docker",
+            "/tests",
             "/.*",
             "/CHANGELOG.md",
             "/cli",

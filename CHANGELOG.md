@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - add Solum Boilerplate
 - mark plugin itself to be ignored for updates
 - explicitly disable Auto Core Updates for Major versions since the default changed to enabled in WP >= 5.6 
+- added a half-manual test to ensure the auto-updater runs but only updates minor versions.
 
 ### Changed
 - bumped composer/installers to also allow 2.* 

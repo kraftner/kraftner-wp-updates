@@ -70,8 +70,6 @@ if [[ "$1" == apache2* ]] ; then
       wp site switch-language de_DE
       wp option update timezone_string "Europe/Vienna"
       wp plugin delete akismet hello
-      wp plugin install query-monitor --activate
-      wp plugin install user-switching --activate
       wp option update permalink_structure "/%postname%/" --quiet
       wp rewrite flush --hard  --quiet
 
