@@ -31,6 +31,8 @@
             "/data",
             "/docker",
             "/tests",
+            "/vendor",
+            "/wordpress",
             "/.*",
             "/CHANGELOG.md",
             "/cli",
