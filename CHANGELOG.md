@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - mark plugin itself to be ignored for updates
 - explicitly disable Auto Core Updates for Major versions since the default changed to enabled in WP >= 5.6 
 
+### Changed
+- bumped composer/installers to also allow 2.* 
+
 ## [0.2.0] - 2020-10-20
 ### Added
 - package metadata
