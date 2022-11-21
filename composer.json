@@ -24,5 +24,18 @@
         "allow-plugins": {
             "composer/installers": true
         }
+    },
+    "archive": {
+        "exclude": [
+            "/bin",
+            "/data",
+            "/docker",
+            "/.*",
+            "/CHANGELOG.md",
+            "/cli",
+            "/GLOSSARY.md",
+            "/README.md",
+            "/SOLUM.md"
+        ]
     }
 }
