@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Kraftner WordPress Updates
  * Description: Configures WordPress Auto Updates to work even with <code>DISALLOW_FILE_MODS</code> set to <code>true</code>. Also disables Auto Core Updates for Major versions.
- * Version: 0.1.0-alpha
+ * Version: 0.1.0
  * Requires PHP: 7.3
  * Author: Thomas Kräftner <thomas@kraftner.com>
  * Author URI: https://kraftner.com/
