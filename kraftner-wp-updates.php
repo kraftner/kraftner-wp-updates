@@ -8,6 +8,7 @@
  * Author URI: https://kraftner.com/
  * Text Domain: kraftner-wp-updates
  * Domain Path: /languages
+ * Update URI: false
  */
 
 declare(strict_types=1);

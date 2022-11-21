@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 ### Added
 - add Solum Boilerplate
+- mark plugin itself to be ignored for updates 
 
 ## [0.2.0] - 2020-10-20
 ### Added
